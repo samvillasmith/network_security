@@ -15,5 +15,6 @@ Requires-Dist: dagshub
 Requires-Dist: fastapi
 Requires-Dist: uvicorn
 Requires-Dist: python-multipart
+Requires-Dist: pymongo[srv]==3.12
 Dynamic: author
 Dynamic: requires-dist

@@ -11,4 +11,6 @@ network_security/components/__init__.py
 network_security/constants/__init__.py
 network_security/entity/__init__.py
 network_security/exception/__init__.py
-network_security/logging/__init__.py
+network_security/exception/exception.py
+network_security/logger/__init__.py
+network_security/logger/custom_logger.py
