@@ -3,6 +3,7 @@ from network_security.exception.exception import NetworkSecurityException
 from network_security.entity.config_entity import DataIngestionConfig, DataValidationConfig, TrainingPipelineConfig
 from network_security.logger.custom_logger import logger
 from network_security.components.data_validation import DataValidation
+from network_security.components.data_transformation import DataTransformation, DataTransformationArtifact, DataValidationArtifact, DataTransformationConfig
 
 import sys
 
@@ -21,6 +22,12 @@ if __name__ == "__main__":
         logger.info("Data validation initiated.")
         data_validation_artifact = data_validation.initiate_data_validation()
         logger.info(f"Data validation completed and artifact: {data_validation_artifact} created.")
+        logger.info("Data transformation initiated.")
+        data_transformation_config = DataTransformationConfig(training_pipeline_config)
+        data_transformation = DataTransformation(data_validation_artifact=data_validation_artifact, data_transformation_config=data_transformation_config)
+        data_transformation_artifact = data_transformation.initiate_data_transformation()
+        logger.info(f"Data transformation completed and artifact: {data_transformation_artifact} created.")
+
 
 
     except Exception as e:

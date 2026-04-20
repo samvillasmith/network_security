@@ -42,3 +42,5 @@ DATA_TRANSFORMATION_IMPUTER_PARAMS: dict = {
     "n_neighbors": 3,
     "weights": "uniform"
 }
+
+PREPROCESSOR_OBJECT_FILE_NAME: str = "preprocessor.pkl"

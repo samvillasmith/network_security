@@ -1,5 +1,5 @@
 import yaml
-from network_security import logger
+from network_security.logger.custom_logger import logger
 from network_security.exception.exception import NetworkSecurityException
 import os, sys
 import numpy as np
@@ -31,7 +31,7 @@ def save_numpy_array_data(file_path: str, array: np.array) -> None:
         dir_path = os.path.dirname(file_path)
         os.makedirs(dir_path, exist_ok=True)
         with open(file_path, "wb") as file_obj:
-            np.dump(array, file_obj)
+            np.save(file_obj, array)
         logger.info(f"Numpy array data saved successfully to file: {file_path}")
     except Exception as e:
         raise NetworkSecurityException(e, sys) from e
