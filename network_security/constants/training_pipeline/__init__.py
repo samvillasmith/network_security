@@ -18,9 +18,7 @@ TEST_FILE_NAME: str = "test.csv"
 
 SCHEMA_FILE_PATH: str = os.path.join("data_schema", "schema.yaml")
 
-"""
-Data ingestion related constants
-"""
+
 
 DATA_INGESTION_COLLECTION_NAME: str = "NetworkData"
 DATA_INGESTION_DATABASE_NAME: str = "NetworkSecurity"
@@ -34,3 +32,13 @@ DATA_VALIDATION_VALID_DIR_NAME: str = "validated"
 DATA_VALIDATION_INVALID_DIR_NAME: str = "invalid"
 DATA_VALIDATION_DRIFT_REPORT_DIR_NAME: str = "data_drift_report"
 DATA_VALIDATION_DRIFT_REPORT_FILE_NAME: str = "data_drift_report.yaml"
+
+DATA_TRANSFORMATION_DIR_NAME: str = "data_transformation"
+DATA_TRANSFORMATION_TRANSFORMED_DATA_DIR_NAME: str = "transformed"
+DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR_NAME: str = "transformed_object"
+
+DATA_TRANSFORMATION_IMPUTER_PARAMS: dict = {
+    "missing_values": np.nan,
+    "n_neighbors": 3,
+    "weights": "uniform"
+}
