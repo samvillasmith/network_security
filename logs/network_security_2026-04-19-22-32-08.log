@@ -1,0 +1,10 @@
+[2026-04-19 22:32:17,663] 74 NetworkSecurity INFO - Performed train test split with test size 0.2
+[2026-04-19 22:32:17,663] 75 NetworkSecurity INFO - Saving train and test split in the data ingestion directory
+[2026-04-19 22:32:17,665] 80 NetworkSecurity INFO - Saving training data to artifacts\2026-04-19-22-32-11\data_ingestion\ingested\train.csv
+[2026-04-19 22:32:17,719] 83 NetworkSecurity INFO - Saving test data to artifacts\2026-04-19-22-32-11\data_ingestion\ingested\test.csv
+[2026-04-19 22:32:17,735] 16 NetworkSecurity INFO - Data ingestion initiated.
+[2026-04-19 22:32:23,602] 74 NetworkSecurity INFO - Performed train test split with test size 0.2
+[2026-04-19 22:32:23,602] 75 NetworkSecurity INFO - Saving train and test split in the data ingestion directory
+[2026-04-19 22:32:23,602] 80 NetworkSecurity INFO - Saving training data to artifacts\2026-04-19-22-32-11\data_ingestion\ingested\train.csv
+[2026-04-19 22:32:23,654] 83 NetworkSecurity INFO - Saving test data to artifacts\2026-04-19-22-32-11\data_ingestion\ingested\test.csv
+[2026-04-19 22:32:23,670] 18 NetworkSecurity INFO - Data initiation completed and artifact: DataIngestionArtifact(train_file_path='artifacts\\2026-04-19-22-32-11\\data_ingestion\\ingested\\train.csv', test_file_path='artifacts\\2026-04-19-22-32-11\\data_ingestion\\ingested\\test.csv') created.
