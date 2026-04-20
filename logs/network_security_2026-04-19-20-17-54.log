@@ -1,0 +1,3 @@
+[2026-04-19 20:18:02,629] 74 NetworkSecurity INFO - Performed train test split with test size 0.2
+[2026-04-19 20:18:02,629] 75 NetworkSecurity INFO - Saving train and test split in the data ingestion directory
+[2026-04-19 20:18:02,629] 80 NetworkSecurity INFO - Saving training data to artifacts\2026-04-19-20-17-56\data_ingestion\ingested\train.csv
