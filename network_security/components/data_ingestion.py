@@ -45,12 +45,6 @@ class DataIngestion:
         except Exception as e:
             raise NetworkSecurityException(e, sys)
     
-    def initiate_data_ingestion(self):
-        try:
-            dataframe = self.export_collection_as_dataframe()
-        except Exception as e:
-            raise NetworkSecurityException(e, sys)
-        
     def export_data_to_feature_store(self, dataframe: pd.DataFrame):
         try:
 

@@ -77,13 +77,13 @@ class DataValidation:
             train_dataframe = DataValidation.read_data(train_file_path)
             test_dataframe = DataValidation.read_data(test_file_path)
 
-            status = self.validate_number_of_columns(dataframe = train_dataframe)
+            if not self.validate_number_of_columns(dataframe=train_dataframe):
+                error_message = f"Data validation failed. Number of columns in the training data is not as per the schema. Expected: {len(self._schema_config['columns'])}, Got: {len(train_dataframe.columns)}"
+                logger.error(error_message)
+                raise NetworkSecurityException(error_message, sys)
 
-            if not status:
-                error_message = f"Data validation failed. Number of columns in the training data is not as per the schema. Expected: {len(self._schema_config)}, Got: {len(train_dataframe.columns)}"
-            status = self.validate_number_of_columns(dataframe = test_dataframe)
-            if not status:
-                error_message = f"Data validation failed. Number of columns in the testing data is not as per the schema. Expected: {len(self._schema_config)}, Got: {len(test_dataframe.columns)}"
+            if not self.validate_number_of_columns(dataframe=test_dataframe):
+                error_message = f"Data validation failed. Number of columns in the testing data is not as per the schema. Expected: {len(self._schema_config['columns'])}, Got: {len(test_dataframe.columns)}"
                 logger.error(error_message)
                 raise NetworkSecurityException(error_message, sys)
             
