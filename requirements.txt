@@ -5,7 +5,13 @@ pymongo
 certifi
 dnspython
 scikit-learn
-mlflow
+shap
+anthropic
+beautifulsoup4
+python-whois
+requests
+streamlit
+mlflow==2.19.0
 pyaml
 dagshub
 fastapi

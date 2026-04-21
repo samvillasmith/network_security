@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Sam%20Ben-Yosef/Desktop/network-security/mlruns/925365500112636478/85e67438774e4ac387c2304dc1d8de38/artifacts
+end_time: 1776739382642
+entry_point_name: ''
+experiment_id: '925365500112636478'
+lifecycle_stage: active
+run_id: 85e67438774e4ac387c2304dc1d8de38
+run_name: AdaBoost Classifier
+run_uuid: 85e67438774e4ac387c2304dc1d8de38
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776739382544
+status: 3
+tags: []
+user_id: Sam Ben-Yosef

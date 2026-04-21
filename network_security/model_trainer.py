@@ -1,4 +1,5 @@
 import os
+import pathlib
 import sys
 
 import mlflow
@@ -27,6 +28,7 @@ from utils.ml_utils.metric.model.estimator import NetworkModel
 
 
 MLFLOW_EXPERIMENT = "NetworkSecurity"
+MLRUNS_DIR = pathlib.Path(__file__).resolve().parents[1] / "mlruns"
 VALIDATION_SIZE = 0.2
 RANDOM_STATE = 42
 
@@ -113,6 +115,8 @@ class ModelTrainer:
     def train_model(self, x_train, y_train, x_val, y_val, x_test, y_test) -> ModelTrainerArtifact:
         models, params = self._candidate_models()
 
+        MLRUNS_DIR.mkdir(parents=True, exist_ok=True)
+        mlflow.set_tracking_uri(MLRUNS_DIR.as_uri())
         mlflow.set_experiment(MLFLOW_EXPERIMENT)
         with mlflow.start_run(run_name="model_selection"):
             fitted_models, model_report = self.evaluate_models(
@@ -149,7 +153,7 @@ class ModelTrainer:
                 file_path=self.model_trainer_config.trained_model_file_path,
                 obj=network_model,
             )
-            mlflow.sklearn.log_model(best_model, artifact_path="best_model")
+            mlflow.sklearn.log_model(best_model, name="best_model")
 
             model_trainer_artifact = ModelTrainerArtifact(
                 trained_model_file_path=self.model_trainer_config.trained_model_file_path,

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Sam%20Ben-Yosef/Desktop/network-security/mlruns/925365500112636478/d3a8931997e646d7bc5d1027940329c3/artifacts
+end_time: 1776739419253
+entry_point_name: ''
+experiment_id: '925365500112636478'
+lifecycle_stage: active
+run_id: d3a8931997e646d7bc5d1027940329c3
+run_name: Random Forest Classifier
+run_uuid: d3a8931997e646d7bc5d1027940329c3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776739419161
+status: 3
+tags: []
+user_id: Sam Ben-Yosef

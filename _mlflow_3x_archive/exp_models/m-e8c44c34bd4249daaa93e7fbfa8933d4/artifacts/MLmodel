@@ -1,0 +1,23 @@
+artifact_path: file:///C:/Users/Sam%20Ben-Yosef/Desktop/network-security/mlruns/925365500112636478/models/m-e8c44c34bd4249daaa93e7fbfa8933d4/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.11.7
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.11.1
+model_id: m-e8c44c34bd4249daaa93e7fbfa8933d4
+model_size_bytes: 942324
+model_uuid: m-e8c44c34bd4249daaa93e7fbfa8933d4
+prompts: null
+run_id: 145bc416a41c4055b6c139fe8e2fc4b1
+utc_time_created: '2026-04-21 02:39:27.080803'

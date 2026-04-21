@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Sam%20Ben-Yosef/Desktop/network-security/mlruns/925365500112636478/1079b65dff4d4203a7b54edd07fb116e/artifacts
+end_time: 1776739426840
+entry_point_name: ''
+experiment_id: '925365500112636478'
+lifecycle_stage: active
+run_id: 1079b65dff4d4203a7b54edd07fb116e
+run_name: model_selection
+run_uuid: 1079b65dff4d4203a7b54edd07fb116e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776739372399
+status: 3
+tags: []
+user_id: Sam Ben-Yosef

@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/Sam%20Ben-Yosef/Desktop/network-security/mlruns/925365500112636478/models/m-23049e6f754a402398e51d8264be04dd/artifacts
+creation_timestamp: 1776740338696
+experiment_id: '925365500112636478'
+last_updated_timestamp: 1776740347136
+model_id: m-23049e6f754a402398e51d8264be04dd
+model_type: null
+name: best_model
+source_run_id: 09257ac5890f41fd8b00302905ff7b55
+status: 2
+status_message: null

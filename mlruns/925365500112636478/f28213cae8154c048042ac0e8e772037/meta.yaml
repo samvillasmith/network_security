@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Sam%20Ben-Yosef/Desktop/network-security/mlruns/925365500112636478/f28213cae8154c048042ac0e8e772037/artifacts
+end_time: 1776738909757
+entry_point_name: ''
+experiment_id: '925365500112636478'
+lifecycle_stage: active
+run_id: f28213cae8154c048042ac0e8e772037
+run_name: Logistic Regression
+run_uuid: f28213cae8154c048042ac0e8e772037
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776738909631
+status: 3
+tags: []
+user_id: Sam Ben-Yosef

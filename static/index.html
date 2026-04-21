@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phishing URL Classifier</title>
+<style>
+:root {
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --panel-hi: #334155;
+  --border: #334155;
+  --text: #e2e8f0;
+  --text-dim: #94a3b8;
+  --red: #ef4444;
+  --amber: #f59e0b;
+  --green: #10b981;
+  --blue: #3b82f6;
+  --accent: #60a5fa;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+header h1 { margin: 0 0 4px; font-size: 28px; font-weight: 600; }
+header .subtitle { margin: 0 0 24px; color: var(--text-dim); font-size: 14px; }
+
+.toolbar {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px; margin-bottom: 20px;
+}
+.toolbar button {
+  background: var(--panel-hi); color: var(--text);
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 8px 14px; font-size: 13px; cursor: pointer;
+  font-family: inherit; transition: background 0.1s;
+}
+.toolbar button:hover { background: #475569; }
+.toolbar button.primary { background: var(--blue); border-color: var(--blue); }
+.toolbar button.primary:hover { background: #2563eb; }
+.toolbar .spacer { flex: 1; }
+
+.url-row {
+  display: flex; gap: 8px; margin-bottom: 20px;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+  padding: 12px;
+}
+.url-row input {
+  flex: 1; background: var(--bg); color: var(--text);
+  border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 14px; font-size: 14px; font-family: inherit;
+}
+.url-row input:focus { outline: none; border-color: var(--accent); }
+.url-row button {
+  background: var(--accent); color: var(--bg);
+  border: none; border-radius: 6px;
+  padding: 10px 18px; font-size: 14px; font-weight: 500;
+  cursor: pointer; font-family: inherit;
+}
+.url-row button:hover { background: #3b82f6; }
+.url-row button:disabled { background: var(--panel-hi); color: var(--text-dim); cursor: wait; }
+
+.feature .default-badge {
+  font-size: 9px; font-weight: 600;
+  background: var(--amber); color: #1f1300;
+  padding: 2px 6px; border-radius: 3px;
+  margin-left: 6px;
+  letter-spacing: 0.04em;
+}
+
+.group { margin-bottom: 20px; }
+.group h2 {
+  font-size: 12px; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--text-dim);
+  margin: 0 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border);
+}
+.features { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 8px; }
+
+.feature {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 12px;
+}
+.feature .meta { flex: 1; min-width: 0; }
+.feature .name { font-size: 13px; font-weight: 500; font-family: "SFMono-Regular", Consolas, monospace; }
+.feature .desc { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+
+.tri { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 5px; overflow: hidden; flex-shrink: 0; }
+.tri button {
+  background: transparent; color: var(--text-dim);
+  border: none; padding: 4px 10px;
+  font-size: 12px; font-family: inherit; cursor: pointer;
+  border-right: 1px solid var(--border); min-width: 36px;
+  transition: background 0.1s, color 0.1s;
+}
+.tri button:last-child { border-right: none; }
+.tri button:hover { color: var(--text); background: var(--panel-hi); }
+.tri button.active-neg { background: var(--red); color: white; }
+.tri button.active-neu { background: var(--amber); color: #1f1300; }
+.tri button.active-pos { background: var(--green); color: #042818; }
+
+.predict-row { display: flex; align-items: center; gap: 16px; margin-top: 24px; }
+#predict-btn {
+  background: var(--blue); color: white;
+  border: none; border-radius: 6px;
+  padding: 12px 28px; font-size: 15px; font-weight: 500;
+  cursor: pointer; font-family: inherit;
+}
+#predict-btn:hover { background: #2563eb; }
+#predict-btn:disabled { background: var(--panel-hi); cursor: wait; }
+#predict-status { color: var(--text-dim); font-size: 13px; }
+
+#result { margin-top: 28px; }
+#result.hidden { display: none; }
+.verdict {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+  padding: 20px; margin-bottom: 12px;
+}
+.verdict-top { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+.label-pill {
+  padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.label-pill.phishing { background: var(--red); color: white; }
+.label-pill.legitimate { background: var(--green); color: #042818; }
+.prob-text { font-size: 14px; color: var(--text-dim); }
+.prob-text strong { color: var(--text); font-size: 18px; font-weight: 600; }
+.prob-bar { height: 6px; background: var(--panel-hi); border-radius: 3px; overflow: hidden; }
+.prob-bar-fill { height: 100%; background: var(--red); transition: width 0.4s ease; }
+
+.card {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+  padding: 18px 20px; margin-bottom: 12px;
+}
+.card h3 {
+  margin: 0 0 10px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim);
+}
+.explanation-text { font-size: 15px; line-height: 1.6; color: var(--text); }
+
+.top-features-list { display: flex; flex-direction: column; gap: 6px; }
+.top-feature {
+  display: grid; grid-template-columns: 1fr auto auto;
+  align-items: center; gap: 12px;
+  padding: 8px 10px; border-radius: 4px; background: var(--bg);
+  font-size: 13px;
+}
+.top-feature .tf-name { font-family: "SFMono-Regular", Consolas, monospace; color: var(--text); }
+.top-feature .tf-val { color: var(--text-dim); font-variant-numeric: tabular-nums; }
+.top-feature .tf-contrib { font-weight: 600; font-variant-numeric: tabular-nums; min-width: 80px; text-align: right; }
+.top-feature .tf-contrib.pos { color: var(--red); }
+.top-feature .tf-contrib.neg { color: var(--green); }
+
+#error {
+  background: #450a0a; border: 1px solid var(--red); border-radius: 6px;
+  padding: 12px 16px; color: #fecaca; font-size: 13px; margin-top: 12px;
+}
+#error.hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>Phishing URL Classifier</h1>
+    <p class="subtitle">
+      Paste a URL to auto-extract features, or set them manually. −1 = phishing signal · 0 = ambiguous · +1 = legitimate signal.
+    </p>
+  </header>
+
+  <div class="url-row">
+    <input id="url-input" type="text" placeholder="https://example.com" spellcheck="false" autocomplete="off">
+    <button id="analyze-btn" type="button">Analyze URL</button>
+  </div>
+
+  <div class="toolbar">
+    <button data-preset="phishing">Load phishing example</button>
+    <button data-preset="legitimate">Load legitimate example</button>
+    <button data-preset="borderline">Load borderline</button>
+    <div class="spacer"></div>
+    <button data-preset="zero">Reset (all 0)</button>
+  </div>
+
+  <form id="feature-form"></form>
+
+  <div class="predict-row">
+    <button id="predict-btn" type="button">Predict</button>
+    <span id="predict-status"></span>
+  </div>
+
+  <div id="error" class="hidden"></div>
+
+  <section id="result" class="hidden">
+    <div class="verdict">
+      <div class="verdict-top">
+        <span class="label-pill"></span>
+        <div class="prob-text">P(phishing) = <strong class="prob-value"></strong></div>
+      </div>
+      <div class="prob-bar"><div class="prob-bar-fill"></div></div>
+    </div>
+    <div class="card">
+      <h3>Explanation</h3>
+      <div class="explanation-text"></div>
+    </div>
+    <div class="card">
+      <h3>Top contributing features</h3>
+      <div class="top-features-list"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const FEATURE_GROUPS = [
+  { name: "URL / Address bar", features: [
+    { name: "having_IP_Address",         desc: "Raw IP in URL instead of domain" },
+    { name: "URL_Length",                desc: "Overall URL length category" },
+    { name: "Shortining_Service",        desc: "Served via a link shortener" },
+    { name: "having_At_Symbol",          desc: "Contains '@' in URL" },
+    { name: "double_slash_redirecting",  desc: "'//' appears in the path" },
+    { name: "Prefix_Suffix",             desc: "Hyphen in the domain" },
+    { name: "having_Sub_Domain",         desc: "Number of subdomains" },
+    { name: "HTTPS_token",               desc: "'https' literal appears inside the domain" },
+  ]},
+  { name: "Domain & hosting", features: [
+    { name: "SSLfinal_State",            desc: "SSL certificate quality (issuer, age)" },
+    { name: "Domain_registeration_length", desc: "Length of domain registration" },
+    { name: "Favicon",                   desc: "Favicon served from same domain" },
+    { name: "port",                      desc: "Non-standard port exposed" },
+    { name: "age_of_domain",             desc: "Age of the domain (WHOIS)" },
+    { name: "DNSRecord",                 desc: "Domain has a DNS record" },
+  ]},
+  { name: "Page content", features: [
+    { name: "Request_URL",               desc: "Fraction of resources from external domains" },
+    { name: "URL_of_Anchor",             desc: "Fraction of anchor tags pointing off-site" },
+    { name: "Links_in_tags",             desc: "External refs in <meta>/<script>/<link>" },
+    { name: "SFH",                       desc: "Where forms submit to" },
+    { name: "Submitting_to_email",       desc: "Form submits via mailto:" },
+    { name: "Abnormal_URL",              desc: "WHOIS host doesn't match URL domain" },
+    { name: "Redirect",                  desc: "Number of redirects when loading" },
+  ]},
+  { name: "JavaScript behavior", features: [
+    { name: "on_mouseover",              desc: "JS changes status bar on mouseover" },
+    { name: "RightClick",                desc: "Right-click disabled by JS" },
+    { name: "popUpWidnow",               desc: "Popup requesting personal info" },
+    { name: "Iframe",                    desc: "Hidden/borderless iframes" },
+  ]},
+  { name: "Reputation", features: [
+    { name: "web_traffic",               desc: "Traffic rank (Alexa-style)" },
+    { name: "Page_Rank",                 desc: "PageRank value" },
+    { name: "Google_Index",              desc: "Indexed by Google" },
+    { name: "Links_pointing_to_page",    desc: "Number of inbound links" },
+    { name: "Statistical_report",        desc: "Appears on phishing blocklists" },
+  ]},
+];
+
+const ALL_NAMES = FEATURE_GROUPS.flatMap(g => g.features.map(f => f.name));
+
+const PRESETS = {
+  phishing: Object.fromEntries(ALL_NAMES.map(n => [n, -1])),
+  legitimate: Object.fromEntries(ALL_NAMES.map(n => [n, 1])),
+  zero: Object.fromEntries(ALL_NAMES.map(n => [n, 0])),
+  borderline: {
+    having_IP_Address: 1, URL_Length: 0, Shortining_Service: 1, having_At_Symbol: 1,
+    double_slash_redirecting: 1, Prefix_Suffix: -1, having_Sub_Domain: -1, SSLfinal_State: 1,
+    Domain_registeration_length: -1, Favicon: 1, port: 1, HTTPS_token: 1, Request_URL: 0,
+    URL_of_Anchor: 0, Links_in_tags: 0, SFH: 1, Submitting_to_email: 1, Abnormal_URL: 1,
+    Redirect: 1, on_mouseover: 1, RightClick: 1, popUpWidnow: 1, Iframe: 1,
+    age_of_domain: -1, DNSRecord: 1, web_traffic: 0, Page_Rank: -1, Google_Index: 1,
+    Links_pointing_to_page: 0, Statistical_report: 1,
+  },
+};
+
+const state = Object.fromEntries(ALL_NAMES.map(n => [n, 0]));
+const REPUTATION_DEFAULTS = new Set([
+  "web_traffic", "Page_Rank", "Google_Index",
+  "Links_pointing_to_page", "Statistical_report",
+]);
+let urlDerivedDefaults = new Set();  // populated after /analyze_url
+
+function render() {
+  const form = document.getElementById("feature-form");
+  form.innerHTML = FEATURE_GROUPS.map(g => `
+    <section class="group">
+      <h2>${g.name}</h2>
+      <div class="features">
+        ${g.features.map(f => `
+          <div class="feature">
+            <div class="meta">
+              <div class="name">${f.name}</div>
+              <div class="desc">${f.desc}</div>
+            </div>
+            <div class="tri" data-feature="${f.name}">
+              <button type="button" data-val="-1">−1</button>
+              <button type="button" data-val="0">0</button>
+              <button type="button" data-val="1">+1</button>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </section>
+  `).join("");
+
+  form.querySelectorAll(".tri").forEach(tri => {
+    const feature = tri.dataset.feature;
+    tri.addEventListener("click", e => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      state[feature] = parseInt(btn.dataset.val, 10);
+      refreshTri(tri, feature);
+    });
+    refreshTri(tri, feature);
+  });
+}
+
+function refreshDefaultBadges() {
+  document.querySelectorAll(".feature").forEach(f => {
+    const nameEl = f.querySelector(".name");
+    const feature = f.querySelector(".tri").dataset.feature;
+    let badge = f.querySelector(".default-badge");
+    const shouldShow = urlDerivedDefaults.has(feature);
+    if (shouldShow && !badge) {
+      badge = document.createElement("span");
+      badge.className = "default-badge";
+      badge.textContent = "DEFAULT";
+      badge.title = "This feature can't be extracted without a paid reputation API — using a neutral default (0).";
+      nameEl.appendChild(badge);
+    } else if (!shouldShow && badge) {
+      badge.remove();
+    }
+  });
+}
+
+function refreshTri(tri, feature) {
+  const val = state[feature];
+  tri.querySelectorAll("button").forEach(b => {
+    const v = parseInt(b.dataset.val, 10);
+    b.classList.remove("active-neg", "active-neu", "active-pos");
+    if (v === val) {
+      if (v === -1) b.classList.add("active-neg");
+      else if (v === 0) b.classList.add("active-neu");
+      else b.classList.add("active-pos");
+    }
+  });
+}
+
+function loadPreset(name) {
+  const preset = PRESETS[name];
+  for (const k of ALL_NAMES) state[k] = preset[k] ?? 0;
+  document.querySelectorAll(".tri").forEach(tri => refreshTri(tri, tri.dataset.feature));
+}
+
+document.querySelectorAll(".toolbar button[data-preset]").forEach(b => {
+  b.addEventListener("click", () => loadPreset(b.dataset.preset));
+});
+
+async function predict() {
+  const btn = document.getElementById("predict-btn");
+  const status = document.getElementById("predict-status");
+  const errEl = document.getElementById("error");
+  errEl.classList.add("hidden");
+  btn.disabled = true;
+  status.textContent = "Scoring + asking Sonnet for an explanation...";
+
+  const t0 = performance.now();
+  try {
+    const res = await fetch("/predict", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ features: state }),
+    });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(`HTTP ${res.status}: ${txt}`);
+    }
+    const data = await res.json();
+    renderResult(data);
+    const ms = Math.round(performance.now() - t0);
+    status.textContent = `Done in ${ms} ms`;
+  } catch (e) {
+    errEl.textContent = `Request failed: ${e.message}`;
+    errEl.classList.remove("hidden");
+    status.textContent = "";
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+function renderResult(data) {
+  const el = document.getElementById("result");
+  el.classList.remove("hidden");
+
+  const pill = el.querySelector(".label-pill");
+  pill.textContent = data.label;
+  pill.classList.remove("phishing", "legitimate");
+  pill.classList.add(data.label);
+
+  const pct = (data.phishing_probability * 100).toFixed(1);
+  el.querySelector(".prob-value").textContent = `${pct}%`;
+  const fill = el.querySelector(".prob-bar-fill");
+  fill.style.width = `${pct}%`;
+  fill.style.background = data.label === "phishing"
+    ? "var(--red)"
+    : "var(--green)";
+
+  el.querySelector(".explanation-text").textContent = data.explanation;
+
+  const list = el.querySelector(".top-features-list");
+  list.innerHTML = data.top_features.map(f => {
+    const contrib = f.shap_contribution;
+    const cls = contrib >= 0 ? "pos" : "neg";
+    const sign = contrib >= 0 ? "+" : "";
+    return `
+      <div class="top-feature">
+        <span class="tf-name">${f.feature}</span>
+        <span class="tf-val">value = ${f.input_value > 0 ? "+" : ""}${f.input_value}</span>
+        <span class="tf-contrib ${cls}">${sign}${contrib.toFixed(3)}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+async function analyzeUrl() {
+  const input = document.getElementById("url-input");
+  const btn = document.getElementById("analyze-btn");
+  const status = document.getElementById("predict-status");
+  const errEl = document.getElementById("error");
+  const url = input.value.trim();
+  if (!url) return;
+  errEl.classList.add("hidden");
+  btn.disabled = true;
+  status.textContent = "Fetching, WHOIS, DNS, extracting features...";
+
+  const t0 = performance.now();
+  try {
+    const res = await fetch("/analyze_url", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+    });
+    if (!res.ok) {
+      const txt = await res.text();
+      throw new Error(`HTTP ${res.status}: ${txt}`);
+    }
+    const data = await res.json();
+    for (const k of ALL_NAMES) {
+      if (k in data.features) state[k] = data.features[k];
+    }
+    urlDerivedDefaults = new Set(data.reputation_feature_names);
+    document.querySelectorAll(".tri").forEach(tri => refreshTri(tri, tri.dataset.feature));
+    refreshDefaultBadges();
+    renderResult(data.prediction);
+    const ms = Math.round(performance.now() - t0);
+    status.textContent = `Extracted + scored in ${ms} ms`;
+  } catch (e) {
+    errEl.textContent = `Analyze failed: ${e.message}`;
+    errEl.classList.remove("hidden");
+    status.textContent = "";
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+document.getElementById("predict-btn").addEventListener("click", predict);
+document.getElementById("analyze-btn").addEventListener("click", analyzeUrl);
+document.getElementById("url-input").addEventListener("keydown", e => {
+  if (e.key === "Enter") { e.preventDefault(); analyzeUrl(); }
+});
+render();
+loadPreset("zero");
+</script>
+</body>
+</html>

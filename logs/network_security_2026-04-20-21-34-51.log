@@ -1,0 +1,57 @@
+[2026-04-20 21:34:55,901] 24 NetworkSecurity INFO - Data ingestion initiated.
+[2026-04-20 21:35:01,937] 68 NetworkSecurity INFO - Performed train test split with test size 0.2
+[2026-04-20 21:35:01,937] 69 NetworkSecurity INFO - Saving train and test split in the data ingestion directory
+[2026-04-20 21:35:01,938] 74 NetworkSecurity INFO - Saving training data to artifacts\2026-04-20-21-34-55\data_ingestion\ingested\train.csv
+[2026-04-20 21:35:01,985] 77 NetworkSecurity INFO - Saving test data to artifacts\2026-04-20-21-34-55\data_ingestion\ingested\test.csv
+[2026-04-20 21:35:02,001] 26 NetworkSecurity INFO - Data ingestion completed: DataIngestionArtifact(train_file_path='artifacts\\2026-04-20-21-34-55\\data_ingestion\\ingested\\train.csv', test_file_path='artifacts\\2026-04-20-21-34-55\\data_ingestion\\ingested\\test.csv')
+[2026-04-20 21:35:02,006] 33 NetworkSecurity INFO - Data validation initiated.
+[2026-04-20 21:35:02,057] 37 NetworkSecurity INFO - Required number of columns: 31
+[2026-04-20 21:35:02,057] 38 NetworkSecurity INFO - Dataframe has columns: Index(['having_IP_Address', 'URL_Length', 'Shortining_Service',
+       'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix',
+       'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length',
+       'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor',
+       'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL',
+       'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe',
+       'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank',
+       'Google_Index', 'Links_pointing_to_page', 'Statistical_report',
+       'Result'],
+      dtype='object')
+[2026-04-20 21:35:02,057] 37 NetworkSecurity INFO - Required number of columns: 31
+[2026-04-20 21:35:02,058] 38 NetworkSecurity INFO - Dataframe has columns: Index(['having_IP_Address', 'URL_Length', 'Shortining_Service',
+       'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix',
+       'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length',
+       'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor',
+       'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL',
+       'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe',
+       'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank',
+       'Google_Index', 'Links_pointing_to_page', 'Statistical_report',
+       'Result'],
+      dtype='object')
+[2026-04-20 21:35:02,210] 35 NetworkSecurity INFO - Data validation completed: DataValidationArtifact(validation_status=False, valid_train_file_path='artifacts\\2026-04-20-21-34-55\\data_validation\\validated\\train.csv', valid_test_file_path='artifacts\\2026-04-20-21-34-55\\data_validation\\validated\\test.csv', invalid_train_file_path=None, invalid_test_file_path=None, drift_report_file_path='artifacts\\2026-04-20-21-34-55\\data_validation\\data_drift_report\\data_drift_report.yaml')
+[2026-04-20 21:35:02,211] 42 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 21:35:02,211] 54 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 21:35:02,251] 40 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 21:35:02,253] 43 NetworkSecurity INFO - Data transformation object created successfully.
+[2026-04-20 21:35:02,259] 30 NetworkSecurity INFO - Saving numpy array data to file: artifacts\2026-04-20-21-34-55\data_transformation\transformed\train.npy
+[2026-04-20 21:35:02,263] 35 NetworkSecurity INFO - Numpy array data saved successfully to file: artifacts\2026-04-20-21-34-55\data_transformation\transformed\train.npy
+[2026-04-20 21:35:02,263] 30 NetworkSecurity INFO - Saving numpy array data to file: artifacts\2026-04-20-21-34-55\data_transformation\transformed\test.npy
+[2026-04-20 21:35:02,266] 35 NetworkSecurity INFO - Numpy array data saved successfully to file: artifacts\2026-04-20-21-34-55\data_transformation\transformed\test.npy
+[2026-04-20 21:35:02,266] 41 NetworkSecurity INFO - Saving object to file: artifacts\2026-04-20-21-34-55\data_transformation\transformed_object\preprocessor.pkl
+[2026-04-20 21:35:02,271] 46 NetworkSecurity INFO - Object saved successfully to file: artifacts\2026-04-20-21-34-55\data_transformation\transformed_object\preprocessor.pkl
+[2026-04-20 21:35:02,273] 44 NetworkSecurity INFO - Data transformation completed: DataTransformationArtifact(transformed_train_file_path='artifacts\\2026-04-20-21-34-55\\data_transformation\\transformed\\train.npy', transformed_test_file_path='artifacts\\2026-04-20-21-34-55\\data_transformation\\transformed\\test.npy', transformed_object_file_path='artifacts\\2026-04-20-21-34-55\\data_transformation\\transformed_object\\preprocessor.pkl')
+[2026-04-20 21:35:02,273] 51 NetworkSecurity INFO - Model training initiated.
+[2026-04-20 21:35:02,789] 88 NetworkSecurity INFO - Fitting Logistic Regression with grid {'C': [0.01, 0.1, 1.0, 10.0], 'class_weight': [None, 'balanced']}
+[2026-04-20 21:35:09,610] 103 NetworkSecurity INFO - Logistic Regression: train_f1=0.9382, val_f1=0.9367, params={'C': 0.1, 'class_weight': None}
+[2026-04-20 21:35:09,762] 88 NetworkSecurity INFO - Fitting Decision Tree with grid {'criterion': ['gini', 'entropy', 'log_loss'], 'max_depth': [None, 8, 16, 32], 'min_samples_leaf': [1, 5, 10]}
+[2026-04-20 21:35:10,360] 103 NetworkSecurity INFO - Decision Tree: train_f1=0.9921, val_f1=0.9618, params={'criterion': 'entropy', 'max_depth': None, 'min_samples_leaf': 1}
+[2026-04-20 21:35:10,486] 88 NetworkSecurity INFO - Fitting AdaBoost Classifier with grid {'learning_rate': [0.01, 0.05, 0.1, 1.0], 'n_estimators': [50, 100, 200]}
+[2026-04-20 21:35:14,690] 103 NetworkSecurity INFO - AdaBoost Classifier: train_f1=0.9440, val_f1=0.9391, params={'learning_rate': 1.0, 'n_estimators': 200}
+[2026-04-20 21:35:14,835] 88 NetworkSecurity INFO - Fitting Gradient Boosting Classifier with grid {'learning_rate': [0.01, 0.05, 0.1], 'n_estimators': [100, 200], 'subsample': [0.6, 0.8, 1.0], 'max_depth': [3, 5]}
+[2026-04-20 21:35:30,658] 103 NetworkSecurity INFO - Gradient Boosting Classifier: train_f1=0.9864, val_f1=0.9651, params={'learning_rate': 0.1, 'max_depth': 5, 'n_estimators': 200, 'subsample': 0.8}
+[2026-04-20 21:35:30,797] 88 NetworkSecurity INFO - Fitting Random Forest Classifier with grid {'n_estimators': [100, 200, 400], 'max_depth': [None, 16, 32], 'min_samples_leaf': [1, 2, 5], 'class_weight': [None, 'balanced']}
+[2026-04-20 21:35:55,284] 103 NetworkSecurity INFO - Random Forest Classifier: train_f1=0.9921, val_f1=0.9720, params={'class_weight': None, 'max_depth': None, 'min_samples_leaf': 1, 'n_estimators': 100}
+[2026-04-20 21:35:55,406] 130 NetworkSecurity INFO - Best model on validation: Random Forest Classifier (val_f1=0.9720)
+[2026-04-20 21:35:55,536] 41 NetworkSecurity INFO - Saving object to file: artifacts\2026-04-20-21-34-55\model_trainer\trained_model\model.pkl
+[2026-04-20 21:35:55,589] 46 NetworkSecurity INFO - Object saved successfully to file: artifacts\2026-04-20-21-34-55\model_trainer\trained_model\model.pkl
+[2026-04-20 21:36:06,439] 163 NetworkSecurity INFO - Model trainer artifact: ModelTrainerArtifact(trained_model_file_path='artifacts\\2026-04-20-21-34-55\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9920624921254882, precision_score=0.9901911468812877, recall_score=0.9939409240090886), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9700942236788201, precision_score=0.9579288025889967, recall_score=0.9825726141078838))
+[2026-04-20 21:36:06,447] 53 NetworkSecurity INFO - Model training completed: ModelTrainerArtifact(trained_model_file_path='artifacts\\2026-04-20-21-34-55\\model_trainer\\trained_model\\model.pkl', train_metric_artifact=ClassificationMetricArtifact(f1_score=0.9920624921254882, precision_score=0.9901911468812877, recall_score=0.9939409240090886), test_metric_artifact=ClassificationMetricArtifact(f1_score=0.9700942236788201, precision_score=0.9579288025889967, recall_score=0.9825726141078838))

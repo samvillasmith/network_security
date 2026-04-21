@@ -1,0 +1,42 @@
+[2026-04-20 20:58:50,262] 74 NetworkSecurity INFO - Performed train test split with test size 0.2
+[2026-04-20 20:58:50,262] 75 NetworkSecurity INFO - Saving train and test split in the data ingestion directory
+[2026-04-20 20:58:50,264] 80 NetworkSecurity INFO - Saving training data to artifacts\2026-04-20-20-58-44\data_ingestion\ingested\train.csv
+[2026-04-20 20:58:50,314] 83 NetworkSecurity INFO - Saving test data to artifacts\2026-04-20-20-58-44\data_ingestion\ingested\test.csv
+[2026-04-20 20:58:50,329] 21 NetworkSecurity INFO - Data ingestion initiated.
+[2026-04-20 20:58:55,980] 74 NetworkSecurity INFO - Performed train test split with test size 0.2
+[2026-04-20 20:58:55,982] 75 NetworkSecurity INFO - Saving train and test split in the data ingestion directory
+[2026-04-20 20:58:55,982] 80 NetworkSecurity INFO - Saving training data to artifacts\2026-04-20-20-58-44\data_ingestion\ingested\train.csv
+[2026-04-20 20:58:56,029] 83 NetworkSecurity INFO - Saving test data to artifacts\2026-04-20-20-58-44\data_ingestion\ingested\test.csv
+[2026-04-20 20:58:56,043] 23 NetworkSecurity INFO - Data initiation completed and artifact: DataIngestionArtifact(train_file_path='artifacts\\2026-04-20-20-58-44\\data_ingestion\\ingested\\train.csv', test_file_path='artifacts\\2026-04-20-20-58-44\\data_ingestion\\ingested\\test.csv') created.
+[2026-04-20 20:58:56,048] 26 NetworkSecurity INFO - Data validation initiated.
+[2026-04-20 20:58:56,091] 37 NetworkSecurity INFO - Required number of columns: 31
+[2026-04-20 20:58:56,091] 38 NetworkSecurity INFO - Dataframe has columns: Index(['having_IP_Address', 'URL_Length', 'Shortining_Service',
+       'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix',
+       'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length',
+       'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor',
+       'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL',
+       'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe',
+       'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank',
+       'Google_Index', 'Links_pointing_to_page', 'Statistical_report',
+       'Result'],
+      dtype='object')
+[2026-04-20 20:58:56,091] 37 NetworkSecurity INFO - Required number of columns: 31
+[2026-04-20 20:58:56,092] 38 NetworkSecurity INFO - Dataframe has columns: Index(['having_IP_Address', 'URL_Length', 'Shortining_Service',
+       'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix',
+       'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length',
+       'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor',
+       'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL',
+       'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe',
+       'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank',
+       'Google_Index', 'Links_pointing_to_page', 'Statistical_report',
+       'Result'],
+      dtype='object')
+[2026-04-20 20:58:56,263] 28 NetworkSecurity INFO - Data validation completed and artifact: DataValidationArtifact(validation_status=True, valid_train_file_path='artifacts\\2026-04-20-20-58-44\\data_validation\\validated\\train.csv', valid_test_file_path='artifacts\\2026-04-20-20-58-44\\data_validation\\validated\\test.csv', invalid_train_file_path=None, invalid_test_file_path=None, drift_report_file_path='artifacts\\2026-04-20-20-58-44\\data_validation\\data_drift_report\\data_drift_report.yaml') created.
+[2026-04-20 20:58:56,263] 29 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 20:58:56,263] 54 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 20:58:56,311] 40 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 20:58:56,311] 43 NetworkSecurity INFO - Data transformation object created successfully.
+[2026-04-20 20:58:56,324] 41 NetworkSecurity INFO - Saving object to file: artifacts\2026-04-20-20-58-44\data_transformation\transformed_object\preprocessor.pkl
+[2026-04-20 20:58:56,328] 46 NetworkSecurity INFO - Object saved successfully to file: artifacts\2026-04-20-20-58-44\data_transformation\transformed_object\preprocessor.pkl
+[2026-04-20 20:58:56,330] 33 NetworkSecurity INFO - Data transformation completed and artifact: None created.
+[2026-04-20 20:58:56,330] 35 NetworkSecurity INFO - Model training initiated.

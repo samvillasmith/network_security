@@ -1,0 +1,42 @@
+[2026-04-20 21:32:53,083] 24 NetworkSecurity INFO - Data ingestion initiated.
+[2026-04-20 21:32:59,338] 68 NetworkSecurity INFO - Performed train test split with test size 0.2
+[2026-04-20 21:32:59,338] 69 NetworkSecurity INFO - Saving train and test split in the data ingestion directory
+[2026-04-20 21:32:59,339] 74 NetworkSecurity INFO - Saving training data to artifacts\2026-04-20-21-32-53\data_ingestion\ingested\train.csv
+[2026-04-20 21:32:59,387] 77 NetworkSecurity INFO - Saving test data to artifacts\2026-04-20-21-32-53\data_ingestion\ingested\test.csv
+[2026-04-20 21:32:59,401] 26 NetworkSecurity INFO - Data ingestion completed: DataIngestionArtifact(train_file_path='artifacts\\2026-04-20-21-32-53\\data_ingestion\\ingested\\train.csv', test_file_path='artifacts\\2026-04-20-21-32-53\\data_ingestion\\ingested\\test.csv')
+[2026-04-20 21:32:59,408] 33 NetworkSecurity INFO - Data validation initiated.
+[2026-04-20 21:32:59,456] 37 NetworkSecurity INFO - Required number of columns: 31
+[2026-04-20 21:32:59,456] 38 NetworkSecurity INFO - Dataframe has columns: Index(['having_IP_Address', 'URL_Length', 'Shortining_Service',
+       'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix',
+       'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length',
+       'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor',
+       'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL',
+       'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe',
+       'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank',
+       'Google_Index', 'Links_pointing_to_page', 'Statistical_report',
+       'Result'],
+      dtype='object')
+[2026-04-20 21:32:59,456] 37 NetworkSecurity INFO - Required number of columns: 31
+[2026-04-20 21:32:59,456] 38 NetworkSecurity INFO - Dataframe has columns: Index(['having_IP_Address', 'URL_Length', 'Shortining_Service',
+       'having_At_Symbol', 'double_slash_redirecting', 'Prefix_Suffix',
+       'having_Sub_Domain', 'SSLfinal_State', 'Domain_registeration_length',
+       'Favicon', 'port', 'HTTPS_token', 'Request_URL', 'URL_of_Anchor',
+       'Links_in_tags', 'SFH', 'Submitting_to_email', 'Abnormal_URL',
+       'Redirect', 'on_mouseover', 'RightClick', 'popUpWidnow', 'Iframe',
+       'age_of_domain', 'DNSRecord', 'web_traffic', 'Page_Rank',
+       'Google_Index', 'Links_pointing_to_page', 'Statistical_report',
+       'Result'],
+      dtype='object')
+[2026-04-20 21:32:59,614] 35 NetworkSecurity INFO - Data validation completed: DataValidationArtifact(validation_status=False, valid_train_file_path='artifacts\\2026-04-20-21-32-53\\data_validation\\validated\\train.csv', valid_test_file_path='artifacts\\2026-04-20-21-32-53\\data_validation\\validated\\test.csv', invalid_train_file_path=None, invalid_test_file_path=None, drift_report_file_path='artifacts\\2026-04-20-21-32-53\\data_validation\\data_drift_report\\data_drift_report.yaml')
+[2026-04-20 21:32:59,614] 42 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 21:32:59,614] 54 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 21:32:59,656] 40 NetworkSecurity INFO - Data transformation initiated.
+[2026-04-20 21:32:59,656] 43 NetworkSecurity INFO - Data transformation object created successfully.
+[2026-04-20 21:32:59,664] 30 NetworkSecurity INFO - Saving numpy array data to file: artifacts\2026-04-20-21-32-53\data_transformation\transformed\train.npy
+[2026-04-20 21:32:59,668] 35 NetworkSecurity INFO - Numpy array data saved successfully to file: artifacts\2026-04-20-21-32-53\data_transformation\transformed\train.npy
+[2026-04-20 21:32:59,668] 30 NetworkSecurity INFO - Saving numpy array data to file: artifacts\2026-04-20-21-32-53\data_transformation\transformed\test.npy
+[2026-04-20 21:32:59,671] 35 NetworkSecurity INFO - Numpy array data saved successfully to file: artifacts\2026-04-20-21-32-53\data_transformation\transformed\test.npy
+[2026-04-20 21:32:59,671] 41 NetworkSecurity INFO - Saving object to file: artifacts\2026-04-20-21-32-53\data_transformation\transformed_object\preprocessor.pkl
+[2026-04-20 21:32:59,676] 46 NetworkSecurity INFO - Object saved successfully to file: artifacts\2026-04-20-21-32-53\data_transformation\transformed_object\preprocessor.pkl
+[2026-04-20 21:32:59,678] 44 NetworkSecurity INFO - Data transformation completed: DataTransformationArtifact(transformed_train_file_path='artifacts\\2026-04-20-21-32-53\\data_transformation\\transformed\\train.npy', transformed_test_file_path='artifacts\\2026-04-20-21-32-53\\data_transformation\\transformed\\test.npy', transformed_object_file_path='artifacts\\2026-04-20-21-32-53\\data_transformation\\transformed_object\\preprocessor.pkl')
+[2026-04-20 21:32:59,678] 51 NetworkSecurity INFO - Model training initiated.

@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/Sam%20Ben-Yosef/Desktop/network-security/mlruns/925365500112636478/1ddb1d23f9194eb8a1303861f85e5ac3/artifacts
+end_time: 1776739141967
+entry_point_name: ''
+experiment_id: '925365500112636478'
+lifecycle_stage: active
+run_id: 1ddb1d23f9194eb8a1303861f85e5ac3
+run_name: Gradient Boosting Classifier
+run_uuid: 1ddb1d23f9194eb8a1303861f85e5ac3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1776739141867
+status: 3
+tags: []
+user_id: Sam Ben-Yosef
